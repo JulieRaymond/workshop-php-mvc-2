@@ -11,7 +11,7 @@ function browseRecipes(): void
 
 function showRecipe($id)
 {
-    // Récupérez l'ID de la recette depuis la requête
+    // Récupére l'ID de la recette depuis la requête
     if (empty($id)) {
         header("HTTP/1.1 404 Not Found");
         die("Paramètre d'entrée incorrect");
@@ -26,7 +26,7 @@ function showRecipe($id)
         die("Recette introuvable");
     }
 
-    // Générez la page web
+    // Génére la page web
     require __DIR__ . '/../views/showRecipe.php';
 }
 
@@ -36,11 +36,11 @@ function addRecipe()
     $errors = [];
 
     if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-        // Récupérez les données du formulaire
+        // Récupére les données du formulaire
         $title = $_POST['title'];
         $description = $_POST['description'];
 
-        // Validez les données
+        // Valide les données
         if (empty($title)) {
             $errors[] = 'Le titre est requis';
         }
@@ -51,20 +51,20 @@ function addRecipe()
             $errors[] = 'Le titre doit comporter moins de 255 caractères';
         }
 
-        // Si aucune erreur de validation, enregistrez la recette
+        // Si aucune erreur de validation, enregistre la recette
         if (empty($errors)) {
-            // Appelez la fonction de modèle pour enregistrer la recette
+            // Appele la fonction de modèle pour enregistrer la recette
             $recipe = [
                 'title' => $title,
                 'description' => $description,
             ];
-            saveRecipe($recipe); // Assurez-vous d'implémenter cette fonction dans votre modèle
+            saveRecipe($recipe);
 
-            // Redirigez l'utilisateur vers la page d'accueil
+            // Redirige vers la page d'accueil
             header('Location: /');
         }
     }
 
-    // Chargez la vue du formulaire avec les erreurs éventuelles
+    // Charge la vue du formulaire avec les erreurs éventuelles
     require __DIR__ . '/../views/form.php';
 }
